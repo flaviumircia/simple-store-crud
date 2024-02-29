@@ -22,4 +22,12 @@ public class OrderDto {
     private BigDecimal total_price;
     private Timestamp order_date;
 
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "id=" + id +
+                ", total_price=" + total_price +
+                ", order_date=" + order_date +
+                '}';
+    }
 }

@@ -1,9 +1,9 @@
 package com.pibd.orderwebapp.orders;
 
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +20,14 @@ public class OrdersController {
     }
 
     @GetMapping("/{id}")
-    public OrderDto getOrderById(@PathVariable Long id){
-        return orderService.getOrderById(id);
+    public ResponseEntity<String> getOrderById(@PathVariable Long id){
+        try{
+            OrderDto orderDto = orderService.getOrderById(id);
+            return ResponseEntity.ok(orderDto.toString());
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
+        }
     }
 
     @PostMapping("/add")
@@ -29,11 +35,23 @@ public class OrdersController {
         orderService.addOrder(orderDto);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteOrder(@PathVariable Long id){
-        orderService.deleteOrderById(id);
+    public ResponseEntity<String> deleteOrder(@PathVariable Long id){
+        try{
+            orderService.deleteOrderById(id);
+            return ResponseEntity.ok("Delete operation was successful");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
+        }
     }
     @PutMapping("/update/{id}")
-    public void updateOrder(@PathVariable Long id,@RequestBody OrderDto request){
-        orderService.updateOrderById(id,request);
+    public ResponseEntity<String> updateOrder(@PathVariable Long id,@RequestBody OrderDto request){
+        try{
+            orderService.updateOrderById(id,request);
+            return ResponseEntity.ok("Update operation was successful");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
+        }
     }
 }
