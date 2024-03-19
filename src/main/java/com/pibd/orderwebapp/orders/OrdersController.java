@@ -1,16 +1,16 @@
 package com.pibd.orderwebapp.orders;
 
 
+import com.pibd.orderwebapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/orders")
+@RequestMapping(Constants.API_URL_PATH +"/orders")
 public class OrdersController {
 
     private final OrderService orderService;
