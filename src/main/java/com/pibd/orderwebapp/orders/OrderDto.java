@@ -2,6 +2,7 @@ package com.pibd.orderwebapp.orders;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pibd.orderwebapp.products.ProductsDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,17 +31,11 @@ public class OrderDto {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-
+    @JsonManagedReference
     private Set<ProductsDto> products;
-
-    @JsonIgnore
-    public Set<ProductsDto> getProducts() {
-        return products;
-    }
 
     public void addProduct(ProductsDto product){
         this.getProducts().add(product);
-//        product.getOrders().add(this);
     }
     @Override
     public String toString() {

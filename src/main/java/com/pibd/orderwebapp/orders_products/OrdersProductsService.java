@@ -2,6 +2,7 @@ package com.pibd.orderwebapp.orders_products;
 
 import com.pibd.orderwebapp.orders.OrderDto;
 import com.pibd.orderwebapp.orders.OrderRepository;
+import com.pibd.orderwebapp.orders.OrderService;
 import com.pibd.orderwebapp.products.ProductsDto;
 import com.pibd.orderwebapp.products.ProductsRepository;
 import jakarta.transaction.Transactional;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +18,6 @@ public class OrdersProductsService {
 
     private final OrderRepository orderRepository;
     private final ProductsRepository productsRepository;
-
     public OrdersProductsDto getAllOrdersAndProducts() {
         List<OrderDto> orders = orderRepository.findAll();
         List<ProductsDto> products = productsRepository.findAll();
@@ -42,6 +43,7 @@ public class OrdersProductsService {
                 );
         product.addOrder(requestBody);
         productsRepository.save(product);
-
     }
+
+
 }

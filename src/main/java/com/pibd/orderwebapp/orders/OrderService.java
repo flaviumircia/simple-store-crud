@@ -1,5 +1,6 @@
 package com.pibd.orderwebapp.orders;
 
+import com.pibd.orderwebapp.exceptions.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,13 @@ public class OrderService {
     }
 
     public void deleteOrderById(Long id) {
+
+        OrderDto order = orderRepository
+                .findById(id)
+                .orElseThrow(
+                        ()-> new ObjectNotFoundException
+                                (STR."Object with \{id} doesn't exist in the database!")
+                );
         orderRepository.deleteById(id);
     }
 

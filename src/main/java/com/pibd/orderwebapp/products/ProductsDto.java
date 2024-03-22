@@ -1,5 +1,7 @@
 package com.pibd.orderwebapp.products;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pibd.orderwebapp.orders.OrderDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,11 +28,11 @@ public class ProductsDto {
     private int stock;
     private BigDecimal price;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
+    @JsonBackReference
     private Set<OrderDto> orders;
     public void addOrder(OrderDto order){
         this.getOrders().add(order);
-//        order.getProducts().add(this);
     }
     @Override
     public String toString() {
